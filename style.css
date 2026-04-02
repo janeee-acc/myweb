@@ -646,12 +646,8 @@ button:hover {
   }
 }
 
-/* Force desktop-style layout on mobile devices */
+/* Keep desktop layout on small screens (mobile) */
 @media (max-width: 1024px), (max-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-
   .container {
     flex-direction: row !important;
     height: calc(100vh - 70px) !important;
@@ -659,12 +655,12 @@ button:hover {
 
   .sidebar {
     position: static !important;
-    top: auto !important;
     left: auto !important;
+    top: auto !important;
     width: 220px !important;
     height: auto !important;
+    border-right: 1px solid #ddd;
     box-shadow: none !important;
-    transition: none !important;
   }
 
   .sidebar.sidebar-open {
@@ -682,21 +678,29 @@ button:hover {
 
   .stats {
     flex-direction: row !important;
+    flex-wrap: nowrap !important;
     gap: 20px !important;
   }
 
+  .stat {
+    width: 200px !important;
+    min-width: 140px !important;
+  }
+
   .course-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    grid-template-columns: repeat(2, minmax(240px, 1fr)) !important;
   }
 
-  .card, .course-card, .enrolled-list {
-    width: 100% !important;
-    min-width: 0 !important;
+  .header-content {
+    flex-wrap: nowrap !important;
+    align-items: center !important;
   }
 
-  .modal-content {
-    width: 90% !important;
-    max-width: 450px !important;
-    margin: 0 auto !important;
+  .header h1 {
+    font-size: 20px !important;
+  }
+
+  .header p {
+    font-size: 13px !important;
   }
 }
