@@ -691,7 +691,7 @@ button:hover {
   }
 
   .course-grid {
-    grid-template-columns: repeat(2, minmax(240px, 1fr)) !important;
+    grid-template-columns: repeat(2, 1fr) !important;
   }
 
   .header-content {
