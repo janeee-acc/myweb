@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Enrollment Portal</title>
+
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-content">
+    <button class="hamburger" onclick="toggleSidebar()">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+    <img src="logo.png" alt="School Logo" class="header-logo">
+    <div class="header-text">
+      <h1>Student Enrollment Portal</h1>
+      <p>Course Registration and Management System</p>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div onclick="navigate(0)" class="nav-item">
+      <span class="material-symbols-outlined">dashboard</span>
+      <span>Dashboard</span>
+    </div>
+
+    <div onclick="navigate(1)" class="nav-item">
+      <span class="material-symbols-outlined">add_box</span>
+      <span>Available Courses</span>
+    </div>
+
+    <div onclick="navigate(2)" class="nav-item">
+      <span class="material-symbols-outlined">library_books</span>
+      <span>Enrolled Courses</span>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page">
+      <h2>Dashboard</h2>
+
+      <div class="card">
+        <h3>Welcome, Student</h3>
+        <p>
+          Welcome to the Student Enrollment Portal. This system allows you to enroll in courses,
+          manage your subjects, and monitor your academic enrollment status in a structured and efficient manner.
+        </p>
+        <button onclick="openGradeModal()" class="manage-grades-btn">Manage Your Grades</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <h4>Enrolled Courses</h4>
+          <h2 id="enrolledCount">0</h2>
+        </div>
+
+        <div class="stat">
+          <h4>Available Courses</h4>
+          <h2>7</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- AVAILABLE COURSES -->
+    <section id="available" class="page hidden">
+      <h2>Available Courses</h2>
+
+      <div class="course-grid">
+        <article class="course-card accent-gold" data-course="ICT 116">
+          <button class="enroll-pill" onclick="enroll('ICT 116')">ENROLL</button>
+          <h3>ICT 116</h3>
+          <p class="course-title">Human Computer Interaction</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">30 / 40</p>
+        </article>
+
+        <article class="course-card accent-green" data-course="PE 1">
+          <button class="enroll-pill" onclick="enroll('PE 1')">ENROLL</button>
+          <h3>PE 1</h3>
+          <p class="course-title">PATHFIT 1: Movement Competency Training</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">11 / 40</p>
+        </article>
+
+        <article class="course-card accent-purple" data-course="CS 1">
+          <button class="enroll-pill" onclick="enroll('CS 1')">ENROLL</button>
+          <h3>CS 1</h3>
+          <p class="course-title">Programming Logic Formulation</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">25 / 40</p>
+        </article>
+
+        <article class="course-card accent-green" data-course="GE 3 SS">
+          <button class="enroll-pill" onclick="enroll('GE 3 SS')">ENROLL</button>
+          <h3>GE 3 SS</h3>
+          <p class="course-title">The Contemporary World</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">36 / 40</p>
+        </article>
+
+        <article class="course-card accent-purple" data-course="ICT 105">
+          <button class="enroll-pill" onclick="enroll('ICT 105')">ENROLL</button>
+          <h3>ICT 105</h3>
+          <p class="course-title">Discrete Structure 1</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">13 / 40</p>
+        </article>
+
+        <article class="course-card accent-purple" data-course="ICT 106">
+          <button class="enroll-pill" onclick="enroll('ICT 106')">ENROLL</button>
+          <h3>ICT 106</h3>
+          <p class="course-title">Discrete Structure 2</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">0 / 40</p>
+        </article>
+
+        <article class="course-card accent-gold" data-course="ENG 3">
+          <button class="enroll-pill" onclick="enroll('ENG 3')">ENROLL</button>
+          <h3>ENG 3</h3>
+          <p class="course-title">Technical Writing with Oral Communication</p>
+          <p class="student-count">TOTAL STUDENTS</p>
+          <p class="count-value">20 / 40</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ENROLLED COURSES -->
+    <section id="enrolled" class="page hidden">
+      <h2>Enrolled Courses</h2>
+
+      <ul id="courseList" class="enrolled-list"></ul>
+    </section>
+
+  </main>
+</div>
+
+<div id="gradeModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Manage Your Grades</h2>
+      <button class="close-btn" onclick="closeGradeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p>Enter your grades for prerequisite courses(1.0 = highest, 3.0 = passing, 4.0+ = fail):</p>
+      <div class="grade-form">
+        <div class="grade-input-group">
+          <label for="grade-CS">CS 1 - Programming Logic Formulation:</label>
+          <input type="text" id="grade-CS" class="grade-input" data-course="CS 1">
+        </div>
+        <div class="grade-input-group">
+          <label for="grade-ICT116">ICT 116 - Human Computer Interaction:</label>
+          <input type="text" id="grade-ICT116" class="grade-input" data-course="ICT 116">
+        </div>
+        <div class="grade-input-group">
+          <label for="grade-PE1">PE 1 - Movement Competency Training:</label>
+          <input type="text" id="grade-PE1" class="grade-input" data-course="PE 1">
+        </div>
+        <div class="grade-input-group">
+          <label for="grade-GE">GE 3 SS - The Contemporary World:</label>
+          <input type="text" id="grade-GE" class="grade-input" data-course="GE 3 SS">
+        </div>
+        <div class="grade-input-group">
+          <label for="grade-ICT105">ICT 105 - Discrete Structure 1:</label>
+          <input type="text" id="grade-ICT105" class="grade-input" data-course="ICT 105">
+        </div>
+        <div class="grade-input-group">
+          <label for="grade-ICT106">ICT 106 - Discrete Structure 2:</label>
+          <input type="text" id="grade-ICT106" class="grade-input" data-course="ICT 106">
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeGradeModal()" class="btn-cancel">Cancel</button>
+      <button onclick="saveGrades()" class="btn-save">Save Grades</button>
+    </div>
+  </div>
+</div>
+
+<div id="dropModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Confirm Drop Course</h2>
+      <button class="close-btn" onclick="closeDropModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="dropMessage">Are you sure you want to drop this course?</p>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeDropModal()" class="btn-cancel">Cancel</button>
+      <button onclick="confirmDrop()" class="btn-save">Drop Course</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
