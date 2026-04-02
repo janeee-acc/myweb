@@ -172,8 +172,14 @@ function navigate(index) {
 function toggleSidebar() {
   const sidebar = document.querySelector('.sidebar');
   sidebar.classList.toggle('sidebar-open');
-
 }
+
+// Ensure mobile nav starts closed on small screens
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth <= 1024) {
+    document.querySelector('.sidebar').classList.remove('sidebar-open');
+  }
+});
 
 function updateCourseCard(code) {
   const course = getCourseInfo(code);
